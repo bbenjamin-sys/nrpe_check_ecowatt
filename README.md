@@ -1,0 +1,1 @@
+# checkicinga_ecowatt
