@@ -7,7 +7,7 @@
 ECOFILE="/tmp/ecowatt.json"
 RTE_AUTH="<your base64 keys>" # sbase64 auth token;
 TOKEN=$(curl -sXPOST https://digital.iservices.rte-france.com/token/oauth/ -H "Authorization: Basic ${RTE_AUTH}" | jq -r  '.["access_token"]')
-#`curl -sH'Authorization: Bearer '$TOKEN https://digital.iservices.rte-france.com/open_api/ecowatt/v4/signals --output $ECOFILE`
+`curl -sH'Authorization: Bearer '$TOKEN https://digital.iservices.rte-france.com/open_api/ecowatt/v4/signals --output $ECOFILE`
 #DATENOW=`date +"%Y-%m-%dT%H:%M:%S%z"`
 DVALUE=`jq '.[][].dvalue' $ECOFILE |uniq`
 if [[ $DVALUE == "1" ]]; then
@@ -19,7 +19,7 @@ elif [[ $DVALUE =~ .*"2".* ]]; then
             for timerange in `jq -r ".[][$day].values[] |select(.hvalue == 2) |.pas" $ECOFILE`
             do
                 date=`jq -r ".[][$day].jour" $ECOFILE`
-                echo "Consommation Warning - $date - $timerange:00 and $timerange:59"
+                echo "RTE Warning - $date - $timerange:00 and $timerange:59"
             done 
         done        
     exit 1
@@ -37,3 +37,8 @@ else
     echo "Consommation - UNKNOWN"
     exit 3
 fi
+
+# Output 
+# RTE Critical - 2022-09-29T00:00:00+02:00 - 6:00 and 6:59
+# RTE Critical - 2022-10-01T00:00:00+02:00 - 10:00 and 10:59
+# RTE Warning - 2022-09-29T00:00:00+02:00 - 8:00 and 8:59
