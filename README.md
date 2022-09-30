@@ -10,3 +10,6 @@
 
 ## API quota restriction 
 - The quota value is one call every 15 minutes
+
+## todo
+- Added filter by region (not yet implemented in the api)
