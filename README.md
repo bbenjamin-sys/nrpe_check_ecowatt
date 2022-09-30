@@ -7,3 +7,6 @@
 
 ## Required tool
 - jq
+
+## API quota restriction 
+- The quota value is one call every 15 minutes
