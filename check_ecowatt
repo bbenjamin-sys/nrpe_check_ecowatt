@@ -15,7 +15,7 @@ TOKEN=$(curl -sXPOST https://digital.iservices.rte-france.com/token/oauth/ -H "A
 `curl -sH'Authorization: Bearer '$TOKEN https://digital.iservices.rte-france.com/open_api/ecowatt/v4/signals --output $ECOFILE`
 DVALUE=`jq '.[][].dvalue' $ECOFILE |uniq`
 if [[ $DVALUE == "1" ]]; then
-    echo "Consommation - OK"
+    echo "RTE - OK"
     exit 0
 elif [[ $DVALUE =~ .*"2".* ]]; then
         for day in {0..3}
