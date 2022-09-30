@@ -6,6 +6,9 @@
 # API quota restriction: 
 # The quota value is one call every 15 minutes
 
+# Required tool : jq
+# apt install jq
+
 ECOFILE="/tmp/ecowatt.json"
 RTE_AUTH="<your base64 keys>" # sbase64 auth token;
 TOKEN=$(curl -sXPOST https://digital.iservices.rte-france.com/token/oauth/ -H "Authorization: Basic ${RTE_AUTH}" | jq -r  '.["access_token"]')
