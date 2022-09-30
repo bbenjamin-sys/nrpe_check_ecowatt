@@ -35,6 +35,11 @@ elif [[ $DVALUE =~ .*"3".* ]]; then
                 date=`jq -r ".[][$day].jour" $ECOFILE`
                 echo "RTE Critical - $date - between $timerange:00 and $timerange:59"
             done 
+            for timerange in `jq -r ".[][$day].values[] |select(.hvalue == 2) |.pas" $ECOFILE`
+            do
+                date=`jq -r ".[][$day].jour" $ECOFILE`
+                echo "RTE Warning - $date - $timerange:00 and $timerange:59"
+            done 
         done        
     exit 2
 else
