@@ -1,0 +1,6 @@
+#!/bin/bash
+# Watch ecowatt every 15mn and 10s
+# Beep if commend if not 0
+
+# Required tool : watch
+watch -b -n 910 ./check_ecowatt
