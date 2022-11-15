@@ -8,9 +8,8 @@
 
 # Required tool : jq
 # apt install jq
-
+source .env
 ECOFILE="/tmp/ecowatt.json"
-RTE_AUTH="<your base64 keys>" # sbase64 auth token;
 TOKEN=$(curl -sXPOST https://digital.iservices.rte-france.com/token/oauth/ -H "Authorization: Basic ${RTE_AUTH}" | jq -r  '.["access_token"]')
 `curl -sH'Authorization: Bearer '$TOKEN https://digital.iservices.rte-france.com/open_api/ecowatt/v4/signals --output $ECOFILE`
 DVALUE=`jq '.[][].dvalue' $ECOFILE |uniq`
